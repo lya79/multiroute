@@ -39,9 +39,9 @@ func (m *MultiRouter) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	z := lenURL // cap=z-x
 	sub := []byte(r.URL.Path)[x:y:z]
 
-	for _, rt := range m.routes {
-		if rt.pattern.Match(sub) {
-			rt.handle(w, r)
+	for i := range m.routes {
+		if m.routes[i].pattern.Match(sub) {
+			m.routes[i].handle(w, r)
 			return
 		}
 	}
